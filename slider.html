@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<style>
+    *{
+        padding:0;
+        margin: 0;
+        list-style: none;
+    }
+    .box{
+        width:100%;
+        height:100%;
+        padding: 50px;
+    }
+    h2{
+        line-height: 100px;
+    }
+    ul{
+        width:300px;
+        height:auto;
+    }
+    .ul{
+        height:40px;
+        line-height: 40px;
+        color: #000;
+    }
+    .list{
+        padding-left: 20px;
+        height:40px;
+        color: #666;
+        line-height: 40px;
+    }
+</style>
+<body>
+<div class="root">
+    <slider-box></slider-box>
+</div>
+</body>
+<script>
+    var obj=[{
+            show:false,
+            id:1,
+            text : "一级标题▼",//父标题
+            children : [
+                {
+                    id : 2,
+                    text : "二级标题"
+                },
+                {
+                    id : 3,
+                    text : "二级标题"
+                },
+                {
+                    id : 4,
+                    text : "二级标题"
+                }
+            ]
+        }, {
+            show:false,
+            id:5,
+            text : "一级标题▼",
+            children : [
+                {
+                    id : 6,
+                    text : "二级标题"
+                },
+                {
+                    id : 7,
+                    text : "二级标题"
+                },
+                {
+                    id : 8,
+                    text : "二级标题"
+                }
+            ]
+        },{
+        show:false,
+        id:5,
+        text : "一级标题▼",
+        children : [
+            {
+                id : 6,
+                text : "二级标题"
+            },
+            {
+                id : 7,
+                text : "二级标题"
+            },
+            {
+                id : 8,
+                text : "二级标题"
+            }
+        ]
+    },{
+        show:false,
+        id:5,
+        text : "一级标题▼",
+        children : [
+            {
+                id : 6,
+                text : "二级标题"
+            },
+            {
+                id : 7,
+                text : "二级标题"
+            },
+            {
+                id : 8,
+                text : "二级标题"
+            }
+        ]
+    }];
+Vue.component('slider-box',{
+    template:"<ul class='box'><li v-for='item in obj'><ul @click='click(item)' class='ul'>{{item.text}}</ul><ul v-show='item.show'><li v-for='list in item.children' class='list'>{{list.text}}</li></ul></li></ul>",
+    data:function(){
+        return{
+            obj:obj,
+        }
+    },
+    methods:{
+        click:function (item) {
+            item.show=!item.show;
+        }
+    }
+})
+    new Vue({
+        el:'.root',
+        data:{
+            show:true
+        }
+    })
+
+</script>
+</html>

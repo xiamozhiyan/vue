@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../node_modules/vue/dist/vue.js"></script>
+    <script src="demo.js"></script>
+    <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<div class="root">
+    <h2>练习一</h2>
+    <span>实现点击内容变化，颜色变化</span>
+    <custom-box :name="myName"></custom-box>
+    <h2>练习二</h2>
+    <span>实现子组件对父组件内容的改变,数据的双向绑定</span>
+    <custom-search :list-data="listData"></custom-search>
+    <h2>练习三</h2>
+    <span>实现下拉列表的无限极查询</span>
+    <custom-menu :menu-data="menuData"></custom-menu>
+</div>
+</body>
+<script>
+    new Vue({
+        el:'.root',
+        data:{
+            myName:'上传',
+            listData:['111','222','333'],
+            menuData:[
+                {
+                    title:"前台技术",
+                    flag:false,
+                    child:[
+                        {
+                            title:"html5",
+                            flag:false
+                        },
+                        {
+                            title:"css3",
+                            flag:false
+                        },
+                    ]
+                },
+                {
+                    title:"后台技术",
+                    flag:false,
+                    child:[
+                        {
+                            title:"mysql",
+                            flag:false
+                        },
+                        {
+                            title:"php",
+                            flag:false,
+                            child:[
+                                {
+                                    title:"smarty",
+                                    flag:false
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    })
+</script>
+</html>

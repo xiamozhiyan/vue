@@ -1,0 +1,13 @@
+body,html,ul,li{
+    padding:0;list-style:none;
+    margin:auto;
+}
+body{
+    background: url("../img/reg6.png") no-repeat center/cover;
+}
+*{
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+}

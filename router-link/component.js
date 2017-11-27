@@ -4,6 +4,17 @@ var index=Vue.component('index',{
 var js=Vue.component('js',{
     template:`<div>这是js页面</div>`
 })
+var jsMenu=Vue.component('js-menu',{
+    template:`<div>
+    <ul>
+        <li>js介绍</li>
+            <ul>
+                <li>变量</li>
+                <li>语法</li>
+            </ul>
+    </ul>
+</div>`
+})
 var css=Vue.component('css',{
     template:`<div>这是css页面</div>`
 })

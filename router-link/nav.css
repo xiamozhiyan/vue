@@ -49,3 +49,26 @@ ol>li{
     height:100%;line-height: 60px;
     padding: 0 30px;
 }
+.left{
+    width:20%;
+    height:90vh;
+    border-right:1px solid #ccc;
+    box-sizing: border-box;
+    float: left;
+}
+.left ul{
+    width:100%;
+    height:auto;
+    display: block;
+    background: rgba(0,0,0,0);
+}
+.left ul li{
+    width:100%;
+    line-height: 50px;
+    background: rgba(0,0,0,0);
+}
+.right{
+    width:80%;
+    height:90vh;
+    float: left;
+}

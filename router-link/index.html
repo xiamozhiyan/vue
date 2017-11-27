@@ -15,13 +15,18 @@
 <body>
 <div class="root">
     <custom-nav></custom-nav>
-    <router-view class="center"></router-view>
+    <router-view class="center left" name="slider"></router-view>
+    <router-view class="center right" name="sliderJs"></router-view>
+    <router-view class="center" ></router-view>
 </div>
 </body>
 <script>
     const routes = [
         { path: '/' , component: index ,name: 'index'},
-        { path: '/js' , component: js , name: 'js'},
+        { path: '/js' , components: {
+            'sliderJs':js,
+            'slider': jsMenu
+        }},
         { path: '/css' , component: css },
         { path: '/php', component: php ,children:[
             {path:'',component:smarty},
@@ -31,7 +36,7 @@
         { path: '*' , redirect:function (to) {
             if(to.path=='/ccc'){
                 return {
-                    'name':'js'
+                    'name':'css'
                 }
             }else{
                 return '/';

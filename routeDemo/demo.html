@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<!--前端的路由  和服务器没有关系
+spa  单页面应用
+-->
+<a href="demo.html#a" class="a">111</a>
+<!--<a href="javascript:;">111</a>-->
+<div class="con"></div>
+</body>
+<script>
+    //实现必须设置setting---build----debuger ---勾选 allow unsigned requests
+   window.onhashchange=function() {
+        fetch(location.hash.slice(1) + '.html').then(function (e) {
+            return e.text();
+        }).then(function (e) {
+            document.querySelector('.con').innerHTML = e;
+        })
+    }
+   /*
+   //存在问题，点击一次#a就会添加一次
+   document.querySelector('a').onclick=function () {
+      location.href=location.href+'#a';
+      var ajax=new XMLHttpRequest();
+      ajax.onload=function () {
+          document.querySelector('.con').innerHTML=ajax.response;
+      }
+      ajax.open('get',"a.html");
+      ajax.send();
+   }*/
+   /*//存在问题，第一次点击地址栏不存在hash，必须点击两次才会实现
+   document.querySelector('a').onclick=function () {
+       var url = location.hash.slice(1);
+       if (url) {
+           var ajax = new XMLHttpRequest();
+           ajax.onload = function () {
+               document.querySelector('.con').innerHTML = ajax.response;
+           }
+           ajax.open('get', url + '.html');
+           ajax.send();
+       }
+   }*/
+</script>
+
+</html>

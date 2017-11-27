@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<style>
+    .box{
+        width:600px;
+        margin: 20px auto;
+    }
+    h2{
+        font-size: 34px;
+        line-height: 70px;
+        text-align: center;
+    }
+    .input{
+        width:100%;
+        height:40px;
+        border-radius: 10px;
+    }
+    .input input{
+        width:100%;
+        height:100%;
+        font-size: 16px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        padding: 5px 20px;
+        outline: none;
+        box-sizing: border-box;
+    }
+    .btns{
+        width:100%;
+        height:50px;
+    }
+    .btns input{
+        padding: 8px 15px;
+        float: right;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        background: rgba(0,0,0,0);
+        border-radius: 5px;
+        margin-left:15px;
+
+    }
+    .list-box{
+        width:100%;
+        height:auto;
+        padding-top: 30px;
+    }
+    .list{
+        width:100%;
+        height:40px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 5px;
+        font-size:14px;
+        line-height: 40px;
+    }
+    .list .opt{
+        float: left;
+        margin-right: 10px;
+        width:5px;
+        height:5px;
+        border: 1px solid #000;
+        border-radius: 50%;
+        margin-top: 17px;
+    }
+    .list .con{
+        float: left;
+    }
+    .list .del{
+        padding: 3px 10px;
+        float: right;
+        border: 1px solid #ccc;
+        line-height: 24px;
+        border-radius: 10px ;
+    }
+    .list .none{
+        width:100%;
+        height:100%;
+        line-height: 40px;
+        font-size: 14px;
+    }
+    .color{
+        background: red;
+    }
+</style>
+<body>
+<div id="view">
+    <div class="box">
+        <h2>To Do List</h2>
+        <div class="input">
+            <input type="text" placeholder="请输入事项" @keydown.13="add" v-model="text" v-focus="true">
+        </div>
+        <div class="btns">
+            <input type="button" value="全部" @click="change('all')">
+            <input type="button" value="已完成" @click="change('1')">
+            <input type="button" value="未完成" @click="change('0')">
+        </div>
+        <div class="list-box">
+            <div class="list" v-show="all.length>0" v-for="item in datas">
+                <div v-if="item.edit" @dblclick="changeEdit(item)">
+                <span class="opt" :class={color:item.state==1} @click="changeState(item,item.state)"></span>
+                <span class="con">{{item.con}}</span>
+                <span class="del" @click="del(item.id)">删除</span>
+                </div>
+                <div v-else>
+                <input type="text" v-model="item.con" @blur="changeEdit(item)" autofocus>
+                </div>
+            </div>
+            <div class="none" v-show="all.length==0">没有数据</div>
+        </div>
+    </div>
+</div>
+<script>
+    //自定义指令
+    Vue.directive('focus', {
+        // 当被绑定的元素插入到 DOM 中时……
+        inserted: function (el,val) {
+            // 聚焦元素
+            if(val.value){
+                el.focus()
+            }
+        }
+    })
+    //localStorage.setItem()接受一个键名和值作为参数,将会把键名添加到存储中,如果键名已存在,则更新其对应的值。
+    //localStorage.getItem(),接受一个键名(key name)作为参数,并返回对应键名的值(key's value)。
+    var vm=new Vue({
+        el:"#view",
+        data:{
+            //parse用于从一个字符串中解析出json对象,
+            all:localStorage.todo?JSON.parse(localStorage.todo):[],
+            text:"",
+            status:"all",
+            edit:true,
+        },
+        methods:{
+            add(){
+                var obj={};
+                obj.id=1000*Math.random()+new Date().getTime();
+                obj.con=this.text;
+                obj.state=0;
+                obj.edit=true;
+                this.all.push(obj);
+                //stringify从json对象中解析成字符串
+                localStorage.todo=JSON.stringify(this.all);
+                this.text="";
+            },
+            changeState(item,state){
+                if(state==0){
+                    item.state=1;
+                }else{
+                    item.state=0;
+                }
+                localStorage.todo=JSON.stringify(this.all);
+            },
+            del(id){
+                this.all=this.all.filter(function (a) {
+                    return a.id!=id;
+                })
+                localStorage.todo=JSON.stringify(this.all);
+            },
+            change(str){
+                this.status=str;
+            },
+            changeEdit(item){
+                item.edit=!item.edit;
+                localStorage.todo=JSON.stringify(this.all);
+            }
+        },
+        computed:{
+            datas(){
+                var that=this;
+                return this.all.filter(function(obj){
+                    if(that.status=='all'){
+                        return obj;
+                    }else{
+                        if(obj.state==that.status){
+                            return obj;
+                        }
+                    }
+                })
+            }
+        }
+    })
+
+</script>
+</body>
+
+</html>

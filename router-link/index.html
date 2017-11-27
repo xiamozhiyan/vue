@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <script src="router.js"></script>
+    <script src="component.js"></script>
+    <script src="nav.js"></script>
+    <link rel="stylesheet" href="nav.css">
+</head>
+<body>
+<div class="root">
+    <custom-nav></custom-nav>
+    <router-view class="center"></router-view>
+</div>
+</body>
+<script>
+    const routes = [
+        { path: '/' , component: index ,name: 'index'},
+        { path: '/js' , component: js , name: 'js'},
+        { path: '/css' , component: css },
+        { path: '/php', component: php ,children:[
+            {path:'',component:smarty},
+            {path:'/thinkphp',component:thinkphp},
+            {path:'/mvc',component:mvc},
+        ]},
+        { path: '*' , redirect:function (to) {
+            if(to.path=='/ccc'){
+                return {
+                    'name':'js'
+                }
+            }else{
+                return '/';
+            }
+
+        }}
+    ]
+    const router = new VueRouter({
+//        mode:'history',
+        // （缩写）相当于 routes: routes
+        routes:routes
+    })
+    new Vue({
+        el:'.root',
+        router:router,
+    })
+</script>
+</html>

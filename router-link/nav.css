@@ -6,6 +6,7 @@ body,html{
     width:100%;
     height:100%;
     font-size: 20px;
+    overflow: hidden;
 }
 body{
     background: url('7.jpg') no-repeat center/cover;
@@ -71,4 +72,22 @@ ol>li{
     width:80%;
     height:90vh;
     float: left;
+}
+.v-enter{
+    transform: translate(100%,0);
+}
+.v-enter-active{
+    transition:all 3s ease;
+}
+.v-enter-to{
+    transform: translate(0,0);
+}
+.v-leave{
+    transform: translate(0,0);
+}
+.v-leave-active{
+    transition:all 0.5s ease;
+}
+.v-leave-to{
+    transform: translate(-100%,0);
 }

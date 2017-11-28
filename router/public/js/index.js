@@ -24,14 +24,7 @@ new Vue({
         fetch("/fetch").then(function (e) {
             return e.json();
         }).then(function(e){
-            var arr=e.map(function(a){
-                var obj={};
-                obj.title=a.cname;
-                obj.flag=true;
-                obj.url=a.cid.toString();
-                return obj;
-            })
-            that.menuData=arr;
+            that.menuData=e;
         })
     }
 })

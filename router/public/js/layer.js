@@ -43,7 +43,6 @@ Vue.component("son",{
         }
     },
     template:`<ul :style="{marginLeft:marginNum+'px'}">
-                    <li style="margin-left: -20px" class="cate">分类</li>
                      <li v-for="item in menuData" @click.stop="show(item)">
                          <!-- 使用 router-link 组件来导航. -->
                         <!-- 通过传入 \`to\` 属性指定链接. -->
